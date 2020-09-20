@@ -3,6 +3,7 @@ const {defineProperties, keys} = Object;
 const noop = () => {};
 
 const accessor = (all, shallow, hook, value, update) => ({
+  configurable: true,
   get: () => value,
   set: _ => {
     if (_ === value) {
@@ -23,7 +24,7 @@ const accessor = (all, shallow, hook, value, update) => ({
   }
 });
 
-const loop = (props, all, shallow, useState, update, get) => {
+const loop = (props, get, all, shallow, useState, update) => {
   const desc = {};
   const fn = update || useState;
   const hook = useState !== noop;
@@ -53,12 +54,12 @@ export default ({
         result = getAttribute(element, key);
       return result;
     };
-    const desc = loop(props, all, shallow, useState, update, value);
+    const desc = loop(props, value, all, shallow, useState, update);
     return defineProperties(element, desc);
   } :
   (props, update) => {
     const value = key => props[key];
-    const desc = loop(props, all, shallow, useState, update, value);
+    const desc = loop(props, value, all, shallow, useState, update);
     return defineProperties({}, desc);
   }
 ;

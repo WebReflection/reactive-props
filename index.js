@@ -80,6 +80,7 @@ self.reactiveState = (function (exports) {
 
   var accessor = function accessor(all, shallow, hook, value, update) {
     return {
+      configurable: true,
       get: function get() {
         return value;
       },
@@ -96,7 +97,7 @@ self.reactiveState = (function (exports) {
     };
   };
 
-  var loop = function loop(props, all, shallow, useState, update, get) {
+  var loop = function loop(props, get, all, shallow, useState, update) {
     var desc = {};
     var fn = update || useState;
     var hook = useState !== noop;
@@ -141,14 +142,14 @@ self.reactiveState = (function (exports) {
         return result;
       };
 
-      var desc = loop(props, all, shallow, useState, update, value);
+      var desc = loop(props, value, all, shallow, useState, update);
       return defineProperties(element, desc);
     } : function (props, update) {
       var value = function value(key) {
         return props[key];
       };
 
-      var desc = loop(props, all, shallow, useState, update, value);
+      var desc = loop(props, value, all, shallow, useState, update);
       return defineProperties({}, desc);
     };
   });
