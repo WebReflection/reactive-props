@@ -1,6 +1,6 @@
 {
   "name": "reactive-props",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "An all-in-one implementation of the Reactive State for Data & DOM patterns.",
   "main": "./cjs/index.js",
   "scripts": {
@@ -13,7 +13,12 @@
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "test": "nyc node test/index.js"
   },
-  "keywords": ["reactive", "state", "hooks", "helper"],
+  "keywords": [
+    "reactive",
+    "state",
+    "hooks",
+    "helper"
+  ],
   "author": "Andrea Giammarchi",
   "license": "ISC",
   "devDependencies": {
