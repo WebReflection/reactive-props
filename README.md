@@ -56,6 +56,14 @@ The default value goal of all options is to cover these common use cases:
 For any other combined use case, please refer to [the related post](https://medium.com/@WebReflection/reactive-state-for-data-dom-78332ddafd0e) and find out your fine tuned reactive state handler.
 
 
+### Live Examples
+
+  * **[wickedElements](https://github.com/WebReflection/wicked-elements#readme)** usage [live demo](https://codepen.io/WebReflection/pen/RwaYzjE)
+  * **[µce](https://github.com/WebReflection/uce#readme)** usage [live demo](https://codepen.io/WebReflection/pen/LYNJwoV)
+  * **[µland](https://github.com/WebReflection/uland#readme)** usage [live demo](https://codepen.io/WebReflection/pen/YzqOoRB)
+  * **[hookedElements](https://github.com/WebReflection/hooked-elements#readme)** usage [live demo](https://codepen.io/WebReflection/pen/qBZMJeX)
+
+
 ### Basic Example
 
 ```js
