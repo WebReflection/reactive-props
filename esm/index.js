@@ -2,7 +2,7 @@ const {defineProperties, keys} = Object;
 
 const noop = () => {};
 
-const accessor = (value, all, shallow, hook, update) => ({
+const accessor = (all, shallow, hook, value, update) => ({
   get: () => value,
   set: _ => {
     if (_ === value) {
@@ -25,9 +25,13 @@ const accessor = (value, all, shallow, hook, update) => ({
 
 const loop = (props, all, shallow, useState, update, get) => {
   const desc = {};
+  const fn = update || useState;
   const hook = useState !== noop;
-  for (let ke = keys(props), y = 0; y < ke.length; y++)
-    desc[ke[y]] = accessor(get(ke[y]), all, shallow, hook, update || useState);
+  const args = [all, shallow, hook];
+  for (let ke = keys(props), y = 0; y < ke.length; y++) {
+    const [value, change] = hook ? useState(get(ke[y])) : [get(ke[y]), fn];
+    desc[ke[y]] = accessor.apply(null, args.concat([value, update || change]));
+  }
   return desc;
 };
 

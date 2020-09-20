@@ -56,7 +56,7 @@ console.assert(invoked);
 console.assert(state.prop === 'OK');
 
 console.log('  hooked state handler');
-reactive = handler({useState: () => invoked = true});
+reactive = handler({useState: value => [value, () => invoked = true]});
 invoked = false;
 state = reactive({prop: ''});
 console.assert(state.prop === '');
@@ -69,7 +69,7 @@ console.assert(!invoked);
 console.assert(state.prop === 'OK');
 
 console.log('  hooked overloaded handler');
-reactive = handler({useState: () => invoked = true});
+reactive = handler({useState: value => [value, () => invoked = true]});
 invoked = false;
 state = reactive({prop: ''}, () => {});
 console.assert(state.prop === '');
@@ -78,7 +78,7 @@ console.assert(!invoked);
 console.assert(state.prop === 'OK');
 
 console.log('  hooked all handler');
-reactive = handler({all: true, useState: () => invoked = true});
+reactive = handler({all: true, useState: value => [value, () => invoked = true]});
 invoked = false;
 state = reactive({prop: ''});
 console.assert(state.prop === '');

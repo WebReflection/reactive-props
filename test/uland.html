@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="module">
+import {Component, render, html, useState} from '//unpkg.com/uland?module';
+import handler from '../esm/index.js';
+
+const reactive = handler({useState});
+
+const MyComponent = Component(() => {
+  const state = reactive({
+    text: 'text',
+    show: true
+  });
+  const toggle = () => {
+    state.show = !state.show;
+  };
+  const oninput = e => {
+    state.text = e.target.value;
+  };
+  return html`
+    <button onclick=${toggle}>toggle child</button>
+    <p>
+    ${state.text} <input value=${state.text} oninput=${oninput}>
+    </p>
+    ${state.show
+      ? MyChild({msg: state.text})
+      : ``}
+  `;
+});
+
+const MyChild = Component(({msg}) => {
+  const state = reactive({ count: 0 });
+  const increase = () => {
+    state.count++;
+  };
+  return html`
+    <p>${msg}</p>
+    <p>${state.count}</p>
+    <button onclick=${increase}>increase</button>
+  `;
+});
+
+render(document.body, MyComponent());
+
+  </script>
+</head>
+<body>
+  
+</body>
+</html>
