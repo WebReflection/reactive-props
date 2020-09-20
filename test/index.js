@@ -1,0 +1,140 @@
+require('basichtml').init({});
+
+const handler = require('../cjs');
+
+let element, invoked, reactive, state;
+
+console.log('  default state handler');
+reactive = handler();
+invoked = false;
+data = [];
+state = reactive({prop: '', data}, () => invoked = true);
+console.assert(state.prop === '');
+state.prop = 'OK';
+console.assert(invoked);
+invoked = false;
+console.assert(state.prop === 'OK');
+state.prop = 'OK';
+console.assert(!invoked);
+console.assert(state.prop === 'OK');
+invoked = false;
+data.push(1);
+state.data = data;
+console.assert(invoked);
+console.assert(state.data === data);
+
+console.log('  not shallow state handler');
+reactive = handler({shallow: false});
+invoked = false;
+data = [];
+state = reactive({prop: '', data}, () => invoked = true);
+console.assert(state.prop === '');
+state.prop = 'OK';
+console.assert(invoked);
+invoked = false;
+console.assert(state.prop === 'OK');
+state.prop = 'OK';
+console.assert(!invoked);
+console.assert(state.prop === 'OK');
+invoked = false;
+data.push(1);
+state.data = data;
+console.assert(!invoked);
+console.assert(state.data === data);
+
+console.log('  all state handler');
+reactive = handler({all: true});
+invoked = false;
+state = reactive({prop: ''}, () => invoked = true);
+console.assert(state.prop === '');
+state.prop = 'OK';
+console.assert(invoked);
+invoked = false;
+console.assert(state.prop === 'OK');
+state.prop = 'OK';
+console.assert(invoked);
+console.assert(state.prop === 'OK');
+
+console.log('  hooked state handler');
+reactive = handler({useState: () => invoked = true});
+invoked = false;
+state = reactive({prop: ''});
+console.assert(state.prop === '');
+state.prop = 'OK';
+console.assert(invoked);
+invoked = false;
+console.assert(state.prop === 'OK');
+state.prop = 'OK';
+console.assert(!invoked);
+console.assert(state.prop === 'OK');
+
+console.log('  hooked overloaded handler');
+reactive = handler({useState: () => invoked = true});
+invoked = false;
+state = reactive({prop: ''}, () => {});
+console.assert(state.prop === '');
+state.prop = 'OK';
+console.assert(!invoked);
+console.assert(state.prop === 'OK');
+
+console.log('  hooked all handler');
+reactive = handler({all: true, useState: () => invoked = true});
+invoked = false;
+state = reactive({prop: ''});
+console.assert(state.prop === '');
+state.prop = 'OK';
+console.assert(invoked);
+invoked = false;
+console.assert(state.prop === 'OK');
+state.prop = 'OK';
+console.assert(invoked);
+console.assert(state.prop === 'OK');
+
+console.log('  default dom handler');
+reactive = handler({dom: true});
+invoked = false;
+element = document.createElement('p');
+state = reactive(element, {prop: ''}, () => invoked = true);
+console.assert(element === state);
+console.assert(state.prop === '');
+state.prop = 'OK';
+console.assert(invoked);
+invoked = false;
+console.assert(state.prop === 'OK');
+state.prop = 'OK';
+console.assert(!invoked);
+console.assert(state.prop === 'OK');
+
+console.log('  default dom handler with property');
+reactive = handler({dom: true});
+invoked = false;
+element = document.createElement('p');
+element.prop = 'initial';
+state = reactive(element, {prop: ''}, () => invoked = true);
+console.assert(element === state);
+console.assert(state.prop === 'initial');
+state.prop = 'OK';
+console.assert(invoked);
+invoked = false;
+console.assert(state.prop === 'OK');
+state.prop = 'OK';
+console.assert(!invoked);
+console.assert(state.prop === 'OK');
+
+console.log('  default dom handler with attribute');
+reactive = handler({dom: true});
+invoked = false;
+element = document.createElement('p');
+element.setAttribute('prop', 'initial');
+state = reactive(element, {prop: ''}, () => invoked = true);
+console.assert(element === state);
+console.assert(state.prop === 'initial');
+state.prop = 'OK';
+console.assert(invoked);
+invoked = false;
+console.assert(state.prop === 'OK');
+state.prop = 'OK';
+console.assert(!invoked);
+console.assert(state.prop === 'OK');
+
+
