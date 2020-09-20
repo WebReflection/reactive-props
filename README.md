@@ -45,12 +45,12 @@ overload.test = 'OK';
 ```
 
 
-#### Defaults use cases
+#### Default Use Cases
 
 The default value goal of all options is to cover these common use cases:
 
   * *primitive properties* that would trigger updates only if different
-  * *non immutable data* that would trigger updates id properties are objects/arrays. Use `shallow = false` option if data is granted to be immutable deep down each inner value
+  * *non immutable data* that would trigger updates if properties are objects/arrays. Use `shallow = false` option if data is granted to be immutable deep down each inner value
   * *integrated hooks* to work within a variety of libraries that offer a `useState` hook
 
 For any other combined use case, please refer to [the related post](https://medium.com/@WebReflection/reactive-state-for-data-dom-78332ddafd0e) and find out your fine tuned reactive state handler.
