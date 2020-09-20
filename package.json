@@ -1,7 +1,7 @@
 {
   "name": "reactive-props",
   "version": "0.0.0",
-  "description": "",
+  "description": "An all-in-one implementation of the Reactive State for Data & DOM patterns.",
   "main": "./cjs/index.js",
   "scripts": {
     "build": "npm run cjs && npm run rollup:es && npm run rollup:babel && npm run min && npm run fix:default && npm run test",
@@ -13,8 +13,8 @@
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "test": "nyc node test/index.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["reactive", "state", "hooks", "helper"],
+  "author": "Andrea Giammarchi",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.11.6",
@@ -38,5 +38,13 @@
     },
     "./package.json": "./package.json"
   },
-  "unpkg": "min.js"
+  "unpkg": "min.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WebReflection/reactive-props.git"
+  },
+  "bugs": {
+    "url": "https://github.com/WebReflection/reactive-props/issues"
+  },
+  "homepage": "https://github.com/WebReflection/reactive-props#readme"
 }
