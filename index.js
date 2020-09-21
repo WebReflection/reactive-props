@@ -90,8 +90,8 @@ self.reactiveProps = (function (exports) {
     return (options.dom ? dom : state)(options);
   });
 
-  exports.default = index;
+  return index;
 
   return exports;
 
-}({}).default);
+}({}));
