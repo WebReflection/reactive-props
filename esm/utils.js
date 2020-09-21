@@ -4,15 +4,7 @@ const accessor = (all, shallow, hook, value, update) => ({
   configurable: true,
   get: () => value,
   set: _ => {
-    if (_ === value) {
-      if (all || (shallow && typeof _ === 'object' && _)) {
-        if (hook)
-          update(value);
-        else
-          update();
-      }
-    }
-    else {
+    if (all || _ !== value || (shallow && typeof _ === 'object' && _)) {
       value = _;
       if (hook)
         update(value);
