@@ -1,11 +1,17 @@
 require('basichtml').init({});
 
-const handler = require('../cjs');
+const genericHandler = require('../cjs');
+const stateHandler = require('../cjs/state');
+const domHandler = require('../cjs/dom');
+const {noop} = require('../cjs/utils.js');
 
 let element, invoked, reactive, state;
 
+console.assert(typeof genericHandler() === 'function');
+console.assert(noop() === void 0);
+
 console.log('  default state handler');
-reactive = handler();
+reactive = stateHandler();
 invoked = false;
 data = [];
 state = reactive({prop: '', data}, () => invoked = true);
@@ -24,7 +30,7 @@ console.assert(invoked);
 console.assert(state.data === data);
 
 console.log('  not shallow state handler');
-reactive = handler({shallow: false});
+reactive = stateHandler({shallow: false});
 invoked = false;
 data = [];
 state = reactive({prop: '', data}, () => invoked = true);
@@ -43,7 +49,7 @@ console.assert(!invoked);
 console.assert(state.data === data);
 
 console.log('  all state handler');
-reactive = handler({all: true});
+reactive = genericHandler({all: true});
 invoked = false;
 state = reactive({prop: ''}, () => invoked = true);
 console.assert(state.prop === '');
@@ -56,7 +62,7 @@ console.assert(invoked);
 console.assert(state.prop === 'OK');
 
 console.log('  hooked state handler');
-reactive = handler({useState: value => [value, () => invoked = true]});
+reactive = genericHandler({useState: value => [value, () => invoked = true]});
 invoked = false;
 state = reactive({prop: ''});
 console.assert(state.prop === '');
@@ -69,7 +75,7 @@ console.assert(!invoked);
 console.assert(state.prop === 'OK');
 
 console.log('  hooked overloaded handler');
-reactive = handler({useState: value => [value, () => invoked = true]});
+reactive = genericHandler({useState: value => [value, () => invoked = true]});
 invoked = false;
 state = reactive({prop: ''}, () => {});
 console.assert(state.prop === '');
@@ -78,7 +84,7 @@ console.assert(!invoked);
 console.assert(state.prop === 'OK');
 
 console.log('  hooked all handler');
-reactive = handler({all: true, useState: value => [value, () => invoked = true]});
+reactive = genericHandler({all: true, useState: value => [value, () => invoked = true]});
 invoked = false;
 state = reactive({prop: ''});
 console.assert(state.prop === '');
@@ -91,7 +97,7 @@ console.assert(invoked);
 console.assert(state.prop === 'OK');
 
 console.log('  default dom handler');
-reactive = handler({dom: true});
+reactive = domHandler();
 invoked = false;
 element = document.createElement('p');
 state = reactive(element, {prop: ''}, () => invoked = true);
@@ -106,7 +112,7 @@ console.assert(!invoked);
 console.assert(state.prop === 'OK');
 
 console.log('  default dom handler with property');
-reactive = handler({dom: true});
+reactive = genericHandler({dom: true});
 invoked = false;
 element = document.createElement('p');
 element.prop = 'initial';
@@ -122,7 +128,7 @@ console.assert(!invoked);
 console.assert(state.prop === 'OK');
 
 console.log('  default dom handler with attribute');
-reactive = handler({dom: true});
+reactive = genericHandler({dom: true});
 invoked = false;
 element = document.createElement('p');
 element.setAttribute('prop', 'initial');

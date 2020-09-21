@@ -64,11 +64,35 @@ The default value goal of all options is to cover these common use cases:
 For any other combined use case, please refer to [the related post](https://medium.com/@WebReflection/reactive-state-for-data-dom-78332ddafd0e) and find out your fine tuned reactive state handler.
 
 
+#### Partial Imports
+
+If all you need is either the *state handler* or the *dom handler*, it is possible to import just those two separately, resulting in a slightly smaller bundle.
+
+```js
+// const genericHandler = require('reactive-props');
+import genericHandler from 'reactive-props';
+
+// const domHandler = require('reactive-props/dom');
+import domHandler from 'reactive-props/dom';
+
+// produces same results
+domHandler();
+genericHandler({dom: true});
+
+// const stateHandler = require('reactive-props/state');
+import stateHandler from 'reactive-props/state';
+
+// produces same results
+stateHandler();
+genericHandler({dom: false});
+```
+
+
 ### Basic Example
 
 ```js
-import createHandler from 'reactive-props';
 // const createHandler = require('reactive-props');
+import createHandler from 'reactive-props';
 
 const reactiveProps = createHandler();
 const reactiveElement = createHandler({dom: true});
