@@ -4,15 +4,161 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>reactive-state</title>
-  <script type="module">
-  import(
-    /^(?:localhost|[::1]|127(?:.d+){3})$/.test(location.hostname) ?
-    '../esm/index.js' :
-    'https://unpkg.com/reactive-state?module'
-  )
-  .then((module) => {
-    console.log(module);
-  });
+  <script src="../index.js"></script>
+  <script>
+  this.onload = function () {
+    var element, invoked, reactive, state;
+    var stateHandler = reactiveProps();
+    var domHandler = reactiveProps({dom: true});
+
+    assert(typeof reactiveProps() === 'function');
+
+    log('  default state handler');
+    reactive = stateHandler;
+    invoked = false;
+    data = [];
+    state = reactive({prop: '', data: data}, function () { invoked = true });
+    assert(state.prop === '');
+    state.prop = 'OK';
+    assert(invoked);
+    invoked = false;
+    assert(state.prop === 'OK');
+    state.prop = 'OK';
+    assert(!invoked);
+    assert(state.prop === 'OK');
+    invoked = false;
+    data.push(1);
+    state.data = data;
+    assert(invoked);
+    assert(state.data === data);
+
+    log('  not shallow state handler');
+    reactive = reactiveProps({shallow: false});
+    invoked = false;
+    data = [];
+    state = reactive({prop: '', data: data}, function () { invoked = true });
+    assert(state.prop === '');
+    state.prop = 'OK';
+    assert(invoked);
+    invoked = false;
+    assert(state.prop === 'OK');
+    state.prop = 'OK';
+    assert(!invoked);
+    assert(state.prop === 'OK');
+    invoked = false;
+    data.push(1);
+    state.data = data;
+    assert(!invoked);
+    assert(state.data === data);
+
+    log('  all state handler');
+    reactive = reactiveProps({all: true});
+    invoked = false;
+    state = reactive({prop: ''}, function () { invoked = true });
+    assert(state.prop === '');
+    state.prop = 'OK';
+    assert(invoked);
+    invoked = false;
+    assert(state.prop === 'OK');
+    state.prop = 'OK';
+    assert(invoked);
+    assert(state.prop === 'OK');
+
+    log('  hooked state handler');
+    reactive = reactiveProps({useState: function (value) { return [value, function () { invoked = true }] }});
+    invoked = false;
+    state = reactive({prop: ''});
+    assert(state.prop === '');
+    state.prop = 'OK';
+    assert(invoked);
+    invoked = false;
+    assert(state.prop === 'OK');
+    state.prop = 'OK';
+    assert(!invoked);
+    assert(state.prop === 'OK');
+
+    log('  hooked overloaded handler');
+    reactive = reactiveProps({useState: function (value) { return [value, function () { invoked = true }] }});
+    invoked = false;
+    state = reactive({prop: ''}, function () {});
+    assert(state.prop === '');
+    state.prop = 'OK';
+    assert(!invoked);
+    assert(state.prop === 'OK');
+
+    log('  hooked all handler');
+    reactive = reactiveProps({all: true, useState: function (value) { return [value, function () { invoked = true }] }});
+    invoked = false;
+    state = reactive({prop: ''});
+    assert(state.prop === '');
+    state.prop = 'OK';
+    assert(invoked);
+    invoked = false;
+    assert(state.prop === 'OK');
+    state.prop = 'OK';
+    assert(invoked);
+    assert(state.prop === 'OK');
+
+    log('  default dom handler');
+    reactive = domHandler;
+    invoked = false;
+    element = document.createElement('p');
+    state = reactive(element, {prop: ''}, function () { invoked = true });
+    assert(element === state);
+    assert(state.prop === '');
+    state.prop = 'OK';
+    assert(invoked);
+    invoked = false;
+    assert(state.prop === 'OK');
+    state.prop = 'OK';
+    assert(!invoked);
+    assert(state.prop === 'OK');
+
+    log('  default dom handler with property');
+    reactive = reactiveProps({dom: true});
+    invoked = false;
+    element = document.createElement('p');
+    element.prop = 'initial';
+    state = reactive(element, {prop: ''}, function () { invoked = true });
+    assert(element === state);
+    assert(state.prop === 'initial');
+    state.prop = 'OK';
+    assert(invoked);
+    invoked = false;
+    assert(state.prop === 'OK');
+    state.prop = 'OK';
+    assert(!invoked);
+    assert(state.prop === 'OK');
+
+    log('  default dom handler with attribute');
+    reactive = reactiveProps({dom: true});
+    invoked = false;
+    element = document.createElement('p');
+    element.setAttribute('prop', 'initial');
+    state = reactive(element, {prop: ''}, function () { invoked = true });
+    assert(element === state);
+    assert(state.prop === 'initial');
+    state.prop = 'OK';
+    assert(invoked);
+    invoked = false;
+    assert(state.prop === 'OK');
+    state.prop = 'OK';
+    assert(!invoked);
+    assert(state.prop === 'OK');
+
+    log('OK');
+
+    function assert(thing) {
+      if (!thing)
+        throw new Error('unexpected result');
+    }
+
+    function log(message) {
+      document.body.appendChild(
+        document.createElement('p')
+      ).textContent = message;
+    }
+  };
   </script>
 </head>
 <body></body>

@@ -2,11 +2,12 @@
 
 [![Build Status](https://travis-ci.com/WebReflection/reactive-props.svg?branch=master)](https://travis-ci.com/WebReflection/reactive-props) [![Coverage Status](https://coveralls.io/repos/github/WebReflection/reactive-props/badge.svg?branch=master)](https://coveralls.io/github/WebReflection/reactive-props?branch=master)
 
-An all-in-one implementation of the [Reactive State for Data & DOM](https://medium.com/@WebReflection/reactive-state-for-data-dom-78332ddafd0e) patterns.
+An all-in-one implementation of the [Reactive State for Data & DOM](https://medium.com/@WebReflection/reactive-state-for-data-dom-78332ddafd0e) patterns, compatible down to IE9.
 
 
 ### Live Examples
 
+  * **[test page](https://webreflection.github.io/reactive-props/test/)** to be sure your target browser is compatible (IE9+)
   * **[wickedElements](https://github.com/WebReflection/wicked-elements#readme)** usage [live demo](https://codepen.io/WebReflection/pen/RwaYzjE)
   * **[µce](https://github.com/WebReflection/uce#readme)** usage [live demo](https://codepen.io/WebReflection/pen/LYNJwoV)
   * **[µland](https://github.com/WebReflection/uland#readme)** usage [live demo](https://codepen.io/WebReflection/pen/YzqOoRB)
