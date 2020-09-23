@@ -4,13 +4,13 @@ const {keys} = require('./object.js');
 const accessor = (all, shallow, hook, value, update) => ({
   configurable: true,
   get: () => value,
-  set: _ => {
+  set(_) {
     if (all || _ !== value || (shallow && typeof _ === 'object' && _)) {
       value = _;
       if (hook)
-        update(value);
+        update.call(this, value);
       else
-        update();
+        update.call(this);
     }
   }
 });

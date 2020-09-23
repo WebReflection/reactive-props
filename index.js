@@ -15,7 +15,7 @@ self.reactiveProps = (function (exports) {
       set: function set(_) {
         if (all || _ !== value || shallow && typeof(_) === 'object' && _) {
           value = _;
-          if (hook) update(value);else update();
+          if (hook) update.call(this, value);else update.call(this);
         }
       }
     };
