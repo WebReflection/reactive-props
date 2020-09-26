@@ -143,4 +143,13 @@ state.prop = 'OK';
 console.assert(!invoked);
 console.assert(state.prop === 'OK');
 
-
+reactive = genericHandler({dom: true});
+invoked = false;
+element = document.createElement('p');
+element.setAttribute('falsy', 'false');
+element.setAttribute('truthy', 1);
+element.setAttribute('num', '4');
+state = reactive(element, {falsy: false, truthy: true, num: 1}, () => invoked = true);
+console.assert(element.falsy === false);
+console.assert(element.truthy === true);
+console.assert(element.num === 4);
