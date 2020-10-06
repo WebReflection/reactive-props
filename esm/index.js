@@ -1,5 +1,3 @@
-import {noop} from './utils.js';
-
 import dom from './dom.js';
 import state from './state.js';
 
