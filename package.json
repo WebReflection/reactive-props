@@ -1,6 +1,6 @@
 {
   "name": "reactive-props",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "An all-in-one implementation of the Reactive State for Data & DOM patterns.",
   "main": "./cjs/index.js",
   "scripts": {
