@@ -35,6 +35,7 @@ self.reactiveProps = (function (exports) {
 
     return desc;
   };
+
   var noop = function noop() {};
 
   var dom = (function () {

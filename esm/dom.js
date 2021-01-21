@@ -1,5 +1,4 @@
-import {defineProperties} from './object.js';
-import {loop, noop} from './utils.js';
+import {defineProperties, loop, noop} from './utils.js';
 
 export default ({
   all = false,

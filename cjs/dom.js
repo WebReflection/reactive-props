@@ -1,6 +1,5 @@
 'use strict';
-const {defineProperties} = require('./object.js');
-const {loop, noop} = require('./utils.js');
+const {defineProperties, loop, noop} = require('./utils.js');
 
 module.exports = ({
   all = false,

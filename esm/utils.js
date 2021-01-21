@@ -1,4 +1,4 @@
-import {keys} from './object.js';
+const {defineProperties, keys} = Object;
 
 const accessor = (all, shallow, hook, value, update) => ({
   configurable: true,
@@ -14,7 +14,7 @@ const accessor = (all, shallow, hook, value, update) => ({
   }
 });
 
-export const loop = (props, get, all, shallow, useState, update) => {
+const loop = (props, get, all, shallow, useState, update) => {
   const desc = {};
   const hook = useState !== noop;
   const args = [all, shallow, hook];
@@ -28,4 +28,6 @@ export const loop = (props, get, all, shallow, useState, update) => {
   return desc;
 };
 
-export const noop = () => {};
+const noop = () => {};
+
+export {defineProperties, loop, noop};

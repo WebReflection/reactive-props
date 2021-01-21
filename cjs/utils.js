@@ -1,5 +1,5 @@
 'use strict';
-const {keys} = require('./object.js');
+const {defineProperties, keys} = Object;
 
 const accessor = (all, shallow, hook, value, update) => ({
   configurable: true,
@@ -28,7 +28,9 @@ const loop = (props, get, all, shallow, useState, update) => {
   }
   return desc;
 };
-exports.loop = loop;
 
 const noop = () => {};
+
+exports.defineProperties = defineProperties;
+exports.loop = loop;
 exports.noop = noop;

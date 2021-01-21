@@ -1,5 +1,4 @@
-import {defineProperties} from './object.js';
-import {loop, noop} from './utils.js';
+import {defineProperties, loop, noop} from './utils.js';
 
 const value = (props, key) => props[key];
 
