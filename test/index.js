@@ -1,4 +1,5 @@
-require('basichtml').init({});
+const {document} = require('linkedom').parseHTML('');
+global.document = document;
 
 const genericHandler = require('../cjs');
 const stateHandler = require('../cjs/state');
